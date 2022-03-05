@@ -20,10 +20,13 @@ export default class MathCharacter extends Character {
   }
 
   get attack() {
-    let calculatedAttack = ((100 - (this.distance - 1) * 10) / 100) * this.defaultAttack;
-    if (this.stoned) {
-      calculatedAttack -= Math.log2(this.distance) * 5;
+    if (this.type === 'Magician' || this.type === 'Daemon') {
+      let calculatedAttack = ((100 - (this.distance - 1) * 10) / 100) * this.defaultAttack;
+      if (this.stoned) {
+        calculatedAttack -= Math.log2(this.distance) * 5;
+      }
+      return calculatedAttack > 0 ? Math.round(calculatedAttack) : 0;
     }
-    return calculatedAttack > 0 ? Math.round(calculatedAttack) : 0;
+    return this.defaultAttack;
   }
 }
